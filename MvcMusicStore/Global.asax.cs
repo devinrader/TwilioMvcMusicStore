@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Data.Entity;
+using MvcMusicStore.Models;
 
 namespace MvcMusicStore
 {
@@ -32,6 +34,8 @@ namespace MvcMusicStore
         protected void Application_Start()
         {
             //System.Data.Entity.Database.SetInitializer(new MvcMusicStore.Models.SampleData());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<MvcMusicStore.Models.MusicStoreEntities>());
+            //Database.SetInitializer(new SampleData())
 
             AreaRegistration.RegisterAllAreas();
 
