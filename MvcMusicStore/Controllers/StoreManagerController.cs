@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcMusicStore.Models;
+using Twilio;
 
 namespace MvcMusicStore.Controllers
 {
@@ -13,6 +14,55 @@ namespace MvcMusicStore.Controllers
     public class StoreManagerController : Controller
     {
         private MusicStoreEntities db = new MusicStoreEntities();
+
+
+        public ViewResult Orders()
+        {
+            var orders = db.Orders;
+            return View(orders.ToList());
+        }
+
+        public ViewResult EditOrder(int id)
+        {
+            var order = db.Orders.Find(id);            
+            return View(order);
+        }
+
+        [HttpPost]
+        public ActionResult EditOrder(int id, Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                var o = db.Orders.Find(id);
+                o.Status = order.Status;
+
+                //send a text message
+                if (o.SendSmsNotifications)
+                {
+                    var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
+                    client.SendSmsMessage(o.Phone, "", string.Format("The status of your order has changed to '{0}'", o.Status));
+                }
+
+                db.SaveChanges();
+                return RedirectToAction("Orders");
+            }
+
+            return View(order);
+        }
+
+        public ViewResult DeleteOrder(int id)
+        {
+            var order = db.Orders.Find(id);
+            if (order != null)
+            {
+                db.Orders.Remove(order);
+                db.SaveChanges();
+            }
+
+            var orders = db.Orders;
+            return View(orders.ToList());
+        }
+
 
         //
         // GET: /StoreManager/

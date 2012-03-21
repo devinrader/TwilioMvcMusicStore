@@ -1,0 +1,94 @@
+﻿@model MvcMusicStore.Models.Order
+
+@{
+    ViewBag.Title = "EditOrder";
+}
+
+<script src="/Scripts/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+<style>
+label  
+{
+    display:block;
+}
+
+input 
+{
+    display: block;
+    margin-bottom: 10px;
+}
+
+ul 
+{
+    list-style-type: none;
+}
+
+</style>
+
+@using (Html.BeginForm())
+{ 
+     @Html.HiddenFor(m=>m.OrderId)
+    @Html.HiddenFor(m => m.OrderDate)       <fieldset>
+    <legend>Order Information</legend>
+    <ul>
+
+
+    <li>
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName)
+        @Html.ValidationMessageFor(m => m.FirstName)
+    </li>
+    <li>
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName)
+        @Html.ValidationMessageFor(m => m.LastName)
+    </li>
+    <li>
+        @Html.LabelFor(m => m.Address)
+        @Html.TextBoxFor(m => m.Address)
+        @Html.ValidationMessageFor(m => m.Address)
+    </li>
+    <li>
+        @Html.LabelFor(m => m.City)
+        @Html.TextBoxFor(m => m.City)
+        @Html.ValidationMessageFor(m => m.City)
+    </li>
+    <li>
+        @Html.LabelFor(m => m.State)
+        @Html.TextBoxFor(m => m.State)
+        @Html.ValidationMessageFor(m => m.State)
+    <li>
+        @Html.LabelFor(m => m.Country)
+        @Html.TextBoxFor(m => m.Country)
+        @Html.ValidationMessageFor(m => m.Country)
+    </li>
+    <li>
+        @Html.LabelFor(m => m.PostalCode)
+        @Html.TextBoxFor(m => m.PostalCode)
+        @Html.ValidationMessageFor(m => m.PostalCode)
+    </li>
+    <li>
+        @Html.LabelFor(m => m.Phone)
+        @Html.TextBoxFor(m => m.Phone)
+        @Html.ValidationMessageFor(m => m.Phone)
+    </li>
+    <li>
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email)
+        @Html.ValidationMessageFor(m => m.Email)
+    </li>
+    <li>
+        @Html.LabelFor(m => m.SendSmsNotifications)
+        @Html.CheckBoxFor(m => m.SendSmsNotifications)
+        @Html.ValidationMessageFor(m => m.SendSmsNotifications)
+    </li>
+    <li>
+        @Html.LabelFor(m => m.Status)
+        @Html.DropDownListFor(m => m.Status, new System.Web.Mvc.SelectList(new string[] { "processing", "shipped" }));
+    </li>
+    <li>
+        <input type="submit" />
+    </li>
+    </ul>
+    </fieldset>
+}

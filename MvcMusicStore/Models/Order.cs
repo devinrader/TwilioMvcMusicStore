@@ -5,9 +5,15 @@ using System.Web.Mvc;
 
 namespace MvcMusicStore.Models
 {
-    [Bind(Exclude = "OrderId")]
+
+    [Bind(Exclude = "OrderId")]    
     public partial class Order
     {
+        public Order()
+        {
+            this.Status = "processing";
+        }
+
         [ScaffoldColumn(false)]
         public int OrderId { get; set; }
 
@@ -63,5 +69,11 @@ namespace MvcMusicStore.Models
         public decimal Total { get; set; }
 
         public List<OrderDetail> OrderDetails { get; set; }
+
+        [ScaffoldColumn(false)]
+        public string Status { get; set; }
+
+        [DisplayName("Send Order Status Updated via SMS")]
+        public bool SendSmsNotifications { get; set; }
     }
 }
