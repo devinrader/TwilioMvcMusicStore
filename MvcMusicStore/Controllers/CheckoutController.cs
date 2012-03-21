@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using MvcMusicStore.Models;
+using Twilio;
+using System.Configuration;
 
 namespace MvcMusicStore.Controllers
 {
@@ -48,6 +50,11 @@ namespace MvcMusicStore.Controllers
                     var cart = ShoppingCart.GetCart(this.HttpContext);
                     cart.CreateOrder(order);
 
+                    if (order.SendSmsNotifications) {
+                        var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
+                        client.SendSmsMessage(ConfigurationManager.AppSettings["PhoneNumber"], order.Phone, string.Format("Thank you for your order.  You can check its status anytime by replying to this message with the command 'status {0}'.", order.OrderId));
+                    }
+
                     return RedirectToAction("Complete",
                         new { id = order.OrderId });
                 }
@@ -65,6 +72,7 @@ namespace MvcMusicStore.Controllers
 
         public ActionResult Complete(int id)
         {
+
             // Validate customer owns this order
             bool isValid = storeDB.Orders.Any(
                 o => o.OrderId == id &&

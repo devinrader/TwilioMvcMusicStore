@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using MvcMusicStore.Models;
 using Twilio;
+using System.Configuration;
 
 namespace MvcMusicStore.Controllers
 {
@@ -40,7 +41,7 @@ namespace MvcMusicStore.Controllers
                 if (o.SendSmsNotifications)
                 {
                     var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
-                    client.SendSmsMessage(o.Phone, "", string.Format("The status of your order has changed to '{0}'", o.Status));
+                    client.SendSmsMessage(ConfigurationManager.AppSettings["PhoneNumber"], o.Phone, string.Format("The status of your order has changed to '{0}'", o.Status));
                 }
 
                 db.SaveChanges();
