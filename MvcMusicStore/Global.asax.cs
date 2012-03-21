@@ -33,9 +33,7 @@ namespace MvcMusicStore
 
         protected void Application_Start()
         {
-            //System.Data.Entity.Database.SetInitializer(new MvcMusicStore.Models.SampleData());
-            Database.SetInitializer(new CreateDatabaseIfNotExists<MvcMusicStore.Models.MusicStoreEntities>());
-            //Database.SetInitializer(new SampleData())
+            //Database.SetInitializer(new Devtalk.EF.CodeFirst.DontDropDbJustCreateTablesIfModelChanged<MusicStoreEntities>());
 
             AreaRegistration.RegisterAllAreas();
 
