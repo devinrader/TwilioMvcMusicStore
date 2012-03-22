@@ -28,7 +28,7 @@ namespace MvcMusicStore.Controllers
         {
             var response = new TwilioResponse();
             response.BeginGather(new { actionUrl = "http://twiliomvcmusicstore.apphb.com/Call/MainMenu", method = "POST" });
-            response.Say("To get the status of an order one");
+            response.Say("To get the status of an order press one");
             response.Say("To place an order press two");
             response.Say("To speak to a customer service representative press three");
             response.EndGather();
@@ -70,7 +70,7 @@ namespace MvcMusicStore.Controllers
 
             var response = new TwilioResponse();
 
-            var order = db.Orders.Find(Digits);
+            var order = db.Orders.Find( int.Parse(Digits) );
             if (order != null)
             {
                 response.Say(string.Format("The status of order {0} is {1}.", Digits, order.Status));
