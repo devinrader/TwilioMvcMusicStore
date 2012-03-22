@@ -19,23 +19,21 @@ namespace MvcMusicStore.Controllers
         public ActionResult Index()
         {
             var response = new TwilioResponse();
-            response.Play("");
-
-            response.Redirect("");
-
-            //say the greeting and redirect
+            response.Play("http://twiliomvcmusicstore.apphb.com/Content/audio/greeting.mp3");
+            response.Redirect("http://twiliomvcmusicstore.apphb.com/Call/MainMenu");
             return TwiML(response);
         }
 
         public ActionResult MainMenu()
         {
             var response = new TwilioResponse();
-            response.BeginGather(new { actionUrl="", method="POST"});
-            response.Say("Option 1");
-            response.Say("Option 2");
-            response.Say("Option 3");
+            response.BeginGather(new { actionUrl = "http://twiliomvcmusicstore.apphb.com/Call/MainMenu", method = "POST" });
+            response.Say("To get the status of an order one");
+            response.Say("To place an order press two");
+            response.Say("To speak to a customer service representative press three");
             response.EndGather();
 
+           response.Redirect("http://twiliomvcmusicstore.apphb.com/Call/MainMenu");
             
             return TwiML(response);
         }
@@ -58,9 +56,11 @@ namespace MvcMusicStore.Controllers
 
         public ActionResult OrderLookup() {
             var response = new TwilioResponse();
-            response.BeginGather(new { actionUrl="", method="POST"});
-            response.Say("Enter your order number");
+            response.BeginGather(new { actionUrl = "http://twiliomvcmusicstore.apphb.com/Call/OrderLookup", method = "POST" });
+            response.Say("Please enter your order number");
             response.EndGather();
+
+            response.Redirect("http://twiliomvcmusicstore.apphb.com/Call/MainMenu");
 
             return TwiML(response);
         }
@@ -79,6 +79,8 @@ namespace MvcMusicStore.Controllers
                 response.Say(string.Format("An order with the ID {0} could not be found.", Digits));
             }
 
+            response.Redirect("http://twiliomvcmusicstore.apphb.com/Call/MainMenu");
+
             return TwiML(response);
         }
 
@@ -87,7 +89,7 @@ namespace MvcMusicStore.Controllers
         public ActionResult CustomerService() {
             var response = new TwilioResponse();
             response.Say("Hold on while we connect you");
-            response.Dial("555-555-5555");
+            response.Dial(ConfigurationManager.AppSettings["CallCenterPhoneNumber"]);
 
             return TwiML(response);
         }
