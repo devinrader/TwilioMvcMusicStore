@@ -17,8 +17,6 @@
     <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery-ui-1.8.18.min.js")" type="text/javascript"></script>
 
-    <script type="text/javascript" src="http://static.twilio.com/libs/twiliojs/1.0/twilio.min.js"></script>        
-
     <script type="text/javascript">
         $(function () {
             $("#click2call").dialog({ autoOpen: false });
@@ -28,7 +26,9 @@
             var c2c = $('#click2call')
             c2c.dialog('open');
         }
-	</script>
+    </script>
+
+    <script type="text/javascript" src="http://static.twilio.com/libs/twiliojs/1.0/twilio.min.js"></script>        
 
     <script type="text/javascript">
 
@@ -91,10 +91,10 @@
 
     <div id="click2call" title="Basic dialog">
         <button onclick="call();">
-          Call
+            Call
         </button>  
         <button onclick="hangup();">
-          Hangup
+            Hangup
         </button>
 	    <p><div id="log">Loading pigeons...</div></p>
     </div>

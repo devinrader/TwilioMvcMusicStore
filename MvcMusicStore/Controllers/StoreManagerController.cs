@@ -37,11 +37,12 @@ namespace MvcMusicStore.Controllers
                 var o = db.Orders.Find(id);
                 o.Status = order.Status;
 
-                //send a text message
                 if (o.SendSmsNotifications)
                 {
                     var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
-                    client.SendSmsMessage(ConfigurationManager.AppSettings["PhoneNumber"], o.Phone, string.Format("The status of your order has changed to '{0}'", o.Status));
+                    client.SendSmsMessage(ConfigurationManager.AppSettings["PhoneNumber"], 
+                        o.Phone, 
+                        string.Format("The status of your order has changed to '{0}'", o.Status));
                 }
 
                 db.SaveChanges();

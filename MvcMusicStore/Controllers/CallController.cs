@@ -33,7 +33,7 @@ namespace MvcMusicStore.Controllers
             response.Say("To speak to a customer service representative press three");
             response.EndGather();
 
-           response.Redirect("http://twiliomvcmusicstore.apphb.com/Call/MainMenu");
+            response.Redirect("http://twiliomvcmusicstore.apphb.com/Call/MainMenu");
             
             return TwiML(response);
         }
@@ -73,10 +73,10 @@ namespace MvcMusicStore.Controllers
             var order = db.Orders.Find( int.Parse(Digits) );
             if (order != null)
             {
-                response.Say(string.Format("The status of order {0} is {1}.", Digits, order.Status));
+                response.Say(string.Format("The status of order {0} is . {1} . ", Digits, order.Status));
             }
             else {
-                response.Say(string.Format("An order with the ID {0} could not be found.", Digits));
+                response.Say(string.Format("An order with the ID . {0} . could not be found.", Digits));
             }
 
             response.Redirect("http://twiliomvcmusicstore.apphb.com/Call/MainMenu");
@@ -84,7 +84,11 @@ namespace MvcMusicStore.Controllers
             return TwiML(response);
         }
 
-        //public ActionResult PlaceAnOrder() { }
+        public ActionResult PlaceAnOrder() {
+            var response = new TwilioResponse();
+            response.Say("Sorry.  This is not implemented yet");
+            return TwiML(response);
+        }
 
         public ActionResult CustomerService() {
             var response = new TwilioResponse();

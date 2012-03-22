@@ -52,7 +52,9 @@ namespace MvcMusicStore.Controllers
 
                     if (order.SendSmsNotifications) {
                         var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
-                        client.SendSmsMessage(ConfigurationManager.AppSettings["PhoneNumber"], order.Phone, string.Format("Thank you for your order.  You can check its status anytime by replying to this message with the command 'status {0}'.", order.OrderId));
+                        client.SendSmsMessage(ConfigurationManager.AppSettings["PhoneNumber"], 
+                            order.Phone, 
+                                string.Format("Thank you for your order.  You can check its status anytime by replying to this message with the command 'status {0}'.", order.OrderId));
                     }
 
                     return RedirectToAction("Complete",
