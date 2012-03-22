@@ -27,7 +27,7 @@ namespace MvcMusicStore.Controllers
         public ActionResult MainMenu()
         {
             var response = new TwilioResponse();
-            response.BeginGather(new { actionUrl = "http://twiliomvcmusicstore.apphb.com/Call/MainMenu", method = "POST" });
+            response.BeginGather(new { actionUrl = "http://twiliomvcmusicstore.apphb.com/Call/MainMenu", method = "POST", numDigits="1" });
             response.Say("To get the status of an order press one");
             response.Say("To place an order press two");
             response.Say("To speak to a customer service representative press three");
@@ -57,7 +57,7 @@ namespace MvcMusicStore.Controllers
         public ActionResult OrderLookup() {
             var response = new TwilioResponse();
             response.BeginGather(new { actionUrl = "http://twiliomvcmusicstore.apphb.com/Call/OrderLookup", method = "POST" });
-            response.Say("Please enter your order number");
+            response.Say("Please enter your order number followed by the pound sign");
             response.EndGather();
 
             response.Redirect("http://twiliomvcmusicstore.apphb.com/Call/MainMenu");
