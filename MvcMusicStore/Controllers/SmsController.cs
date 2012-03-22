@@ -17,7 +17,7 @@ namespace MvcMusicStore.Controllers
 
         public ActionResult Index(string Body)
         {
-            string[] parts = Body.Split(' ' );
+            string[] parts = Body.ToLower().Split(' ' );
             if (parts.Count() != 2)
             {
                 return new EmptyResult();
@@ -28,7 +28,7 @@ namespace MvcMusicStore.Controllers
                 case "status" :
 
                     var response = new TwilioResponse();
-                    var order = db.Orders.Find(parts[1]);
+                    var order = db.Orders.Find( int.Parse(parts[1]) );
                     if (order != null)
                     {
                         response.Sms(string.Format("The status of order '{0}' is: {1}", parts[1], order.Status));                        
