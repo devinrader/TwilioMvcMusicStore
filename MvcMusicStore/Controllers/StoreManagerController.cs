@@ -11,7 +11,7 @@ using System.Configuration;
 
 namespace MvcMusicStore.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public class StoreManagerController : Controller
     {
         private MusicStoreEntities db = new MusicStoreEntities();
