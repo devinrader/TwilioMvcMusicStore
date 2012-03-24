@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Twilio.TwiML.Mvc;
-using Twilio.TwiML;
+using System.Configuration;
 
 namespace MvcMusicStore.Controllers
 {
-    public class SmsController : TwilioController
+    public class CallController : Controller
     {
         MvcMusicStore.Models.MusicStoreEntities db = new Models.MusicStoreEntities();
         //
-        // GET: /Sms/
+        // GET: /Call/
 
-        public ActionResult Index(String Body)
+        public ActionResult Index()
         {
-            return View();           
+            return View();
         }
 
     }
