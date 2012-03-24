@@ -50,7 +50,16 @@ namespace MvcMusicStore.Controllers
                     var cart = ShoppingCart.GetCart(this.HttpContext);
                     cart.CreateOrder(order);
 
-                    //Add SMS notification here     
+                    //Add SMS notification here
+                    if (order.SendSmsNotifications)
+                    {
+                        var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
+                        client.SendSmsMessage(
+                                ConfigurationManager.AppSettings["PhoneNumber"],
+                                order.Phone,
+                                string.Format("Thank you for ordering.  You can check the status anytime by replying to this with the text 'status {0}'", order.OrderId)
+                            );
+                    }
 
                     return RedirectToAction("Complete",
                         new { id = order.OrderId });
