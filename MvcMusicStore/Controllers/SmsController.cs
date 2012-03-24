@@ -4,48 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Twilio.TwiML.Mvc;
-using Twilio.TwiML;
-using MvcMusicStore.Models;
 
 namespace MvcMusicStore.Controllers
 {
-    public class SmsController : TwilioController
+    public class SmsController : Controller
     {
-        private MusicStoreEntities db = new MusicStoreEntities();
+        MvcMusicStore.Models.MusicStoreEntities db = new Models.MusicStoreEntities();
         //
         // GET: /Sms/
 
-        public ActionResult Index(string Body)
+        public ActionResult Index()
         {
-            string[] parts = Body.ToLower().Split(' ' );
-            if (parts.Count() != 2)
-            {
-                return new EmptyResult();
-            }
-
-            switch (parts[0])
-            {
-                case "status" :
-
-                    var response = new TwilioResponse();
-                    var order = db.Orders.Find( int.Parse(parts[1]) );
-                    if (order != null)
-                    {
-                        response.Sms(string.Format("The status of order '{0}' is: {1}", parts[1], order.Status));                        
-                    }
-                    else 
-                    {
-                        response.Sms(string.Format("No order with the id '{0}' could be located", parts[1]));
-                    }
-
-                    return TwiML(response);
-
-                //add other sms commands here
-
-                default :
-                    return new EmptyResult();
-            }
-
+            return View();
         }
 
     }
