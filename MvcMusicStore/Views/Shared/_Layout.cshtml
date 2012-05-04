@@ -26,7 +26,13 @@
             <li>@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
             
             <li><a href="@Url.Content("~/StoreManager/")">Admin</a></li>
-            <li><a href="#" onclick="openc2c();">Talk to us!</a></li>
+            
+            
+            @*Uncomment*@
+            @*<li><a href="#" onclick="openc2c();">Talk to us!</a></li>*@
+
+
+
             @if (Request.IsAuthenticated)
             { 
                 <li>@Html.ActionLink("Log Off", "LogOff", "Account")</li>
